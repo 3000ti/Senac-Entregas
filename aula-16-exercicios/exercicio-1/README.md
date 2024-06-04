@@ -3,7 +3,7 @@
 
 #### 1. Faça um programa
 
-Faça um programa que ergunta ao usuário a sua idade e imprima no console se ela/e pode dirigir (apenas maiores de idade).
+Faça um programa que pergunta ao usuário a sua idade e imprima no console se ela/e pode dirigir (apenas maiores de idade).
 
 a) Faça um `prompt` para receber a idade do usuário e guarde em uma variável.
 
