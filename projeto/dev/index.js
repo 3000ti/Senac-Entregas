@@ -77,7 +77,7 @@ function cadastrar() {
 
 	// Apresentar mensagem de sucesso
 	console.log(`Dados cadastrados com sucesso!`)
-	console.log(formatar(doador))
+	console.log(formatar(doador, ""))
 	console.log("---------------")
 }
 
@@ -101,7 +101,7 @@ function listar() {
 	// Laço de repetição
 	for (const [ indice, objeto ] of dados.entries()) {
 		// Imprimir dados formatados
-		console.log(formatar(objeto, indice))
+		console.log(formatar(objeto, indice + 1))
 	}
 
 	// Apresentar mensagem de sucesso
