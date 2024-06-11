@@ -18,10 +18,43 @@ const dados = [{
 }]
 
 
+// Função para formatar dados
+function formatar(objeto, indice) {
+	// Criar string vazia
+	let string = ""
+
+	// Verificar se há índice
+	if (indice !== "") {
+		// Verificar como será o peso
+		const peso = isNaN(objeto.peso) ? objeto.peso : objeto.peso + "kg"
+
+		// Criar objeto formatado
+		const of = {
+			indice: indice.toString().padEnd(2, " "),
+			nome: objeto.nome.padEnd(20, " "),
+			nascimento: objeto.nascimento.padEnd(13, " "),
+			peso: peso.padEnd(6, " "),
+			sangue: objeto.sangue.padEnd(6, " "),
+			doacao: objeto.doacao,
+		}
+
+		// Inserir as informações na string
+		string = `${of.indice} | ${of.nome} | ${of.nascimento} | ${of.peso} | ${of.sangue} | ${of.doacao}`
+	}
+	else {
+		// Inserir as informações na string
+		string = `Nome: ${objeto.nome} | Aniversário: ${objeto.nascimento} | Peso: ${objeto.peso}kg | Tipo: ${objeto.sangue} | Última doação: ${objeto.doacao}`
+	}
+
+	// Retornar string formatada
+	return string
+}
+
+
 // Função para cadastro
 function cadastrar() {
 	// Mostrar mensagem de apresentação
-	console.log("Função para cadastro!")
+	console.log("Cadastro de doadores!")
 
 	// Pedir para o usuário os seus dados
 	const usuarioNome = prompt("Qual seu nome e sobrenome?")
@@ -31,7 +64,7 @@ function cadastrar() {
 	const usuarioDoacao = prompt("Quando você doou sangue pela última vez? Data no formato dd/mm/aaaa")
 
 	// Organizar os dados em um objeto
-	const usuario = {
+	const doador = {
 		nome: usuarioNome,
 		nascimento: usuarioNascimento,
 		peso: usuarioPeso,
@@ -40,17 +73,40 @@ function cadastrar() {
 	}
 
 	// Adicionar dados ao array
-	dados.push(usuario)
+	dados.push(doador)
 
 	// Apresentar mensagem de sucesso
 	console.log(`Dados cadastrados com sucesso!`)
-	console.log(`Nome: ${usuario.nome} | Data de nascimento: ${usuario.nascimento} | Peso: ${usuario.peso}kg | Tipo sanguíneo: ${usuario.sangue} | Data da última doação: ${usuario.doacao}`)
+	console.log(formatar(doador))
 	console.log("---------------")
 }
 
 // Função para listar
 function listar() {
-	console.log("Função de lista")
+	// Mostrar mensagem de apresentação
+	console.log("Lista de doadores!")
+
+	// Montar cabeçalho da lista
+	const cabecalho = {
+		nome: "NOME E SOBRENOME",
+		nascimento: "ANIVERSÁRIO",
+		peso: "PESO",
+		sangue: "TIPO",
+		doacao: "ÚLTIMA DOAÇÃO",
+	}
+
+	// Imprimir cabeçalho
+	console.log(formatar(cabecalho, "#"))
+
+	// Laço de repetição
+	for (const [ indice, objeto ] of dados.entries()) {
+		// Imprimir dados formatados
+		console.log(formatar(objeto, indice))
+	}
+
+	// Apresentar mensagem de sucesso
+	console.log(`Dados listados com sucesso! ${dados.length} doadores encontrados.`)
+	console.log("---------------")
 }
 
 // Função para buscar
@@ -60,8 +116,11 @@ function buscar() {
 
 // Função para sair
 function sair() {
+	// Mostrar mensagem de apresentação
+	console.log("Função de saída! Para reiniciar, atualize a aba do navegador.")
+
+	// Interromper programa
 	continuar = false
-	console.log("Tchau! Para reiniciar, atualize a aba do navegador.")
 }
 
 
