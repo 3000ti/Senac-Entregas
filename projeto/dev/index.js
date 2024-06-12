@@ -13,8 +13,20 @@ const dados = [{
 	nome: "Maria Oliveira",
 	nascimento: "31/12/1991",
 	peso: 64,
-	sangue: "O+",
+	sangue: "O-",
 	doacao: "10/01/2024",
+}, {
+	nome: "Pedro Cardozo",
+	nascimento: "06/12/1969",
+	peso: 89,
+	sangue: "A+",
+	doacao: "10/01/2024",
+}, {
+	nome: "Joana Pereira",
+	nascimento: "15/05/1995",
+	peso: 70,
+	sangue: "O-",
+	doacao: "11/10/2023",
 }]
 
 
@@ -81,43 +93,100 @@ function cadastrar() {
 	console.log("---------------")
 }
 
+
 // Função para listar
 function listar() {
 	// Mostrar mensagem de apresentação
 	console.log("Lista de doadores!")
 
-	// Montar cabeçalho da lista
-	const cabecalho = {
-		nome: "NOME E SOBRENOME",
-		nascimento: "ANIVERSÁRIO",
-		peso: "PESO",
-		sangue: "TIPO",
-		doacao: "ÚLTIMA DOAÇÃO",
+	// Verificar se temos dados cadastrados
+	if (dados.length > 0) {
+		// Montar cabeçalho da lista
+		const cabecalho = {
+			nome: "NOME E SOBRENOME",
+			nascimento: "ANIVERSÁRIO",
+			peso: "PESO",
+			sangue: "TIPO",
+			doacao: "ÚLTIMA DOAÇÃO",
+		}
+	
+		// Imprimir cabeçalho
+		console.log(formatar(cabecalho, "#"))
+
+		// Laço de repetição (for... of)
+		for (const [ indice, objeto ] of dados.entries()) {
+			// Imprimir dados formatados
+			console.log(formatar(objeto, indice + 1))
+		}
+
+		// Apresentar mensagem de sucesso
+		console.log(`Dados listados com sucesso! ${dados.length} doadores encontrados.`)
+	}
+	else {
+		// Apresentar mensagem de erro
+		console.log(`Nenhum doador encontrado! Cadastre novos doadores.`)
 	}
 
-	// Imprimir cabeçalho
-	console.log(formatar(cabecalho, "#"))
-
-	// Laço de repetição
-	for (const [ indice, objeto ] of dados.entries()) {
-		// Imprimir dados formatados
-		console.log(formatar(objeto, indice + 1))
-	}
-
-	// Apresentar mensagem de sucesso
-	console.log(`Dados listados com sucesso! ${dados.length} doadores encontrados.`)
+	// Imprimir divisor
 	console.log("---------------")
 }
 
+
 // Função para buscar
 function buscar() {
-	console.log("Função de busca")
+	// Mostrar mensagem de apresentação
+	console.log("Busca de doadores!")
+
+	// Perguntar o tipo sanguíneo desejado
+	const busca = prompt("Qual o tipo sanguíneo desejado?")
+	const resultados = []
+
+	// Percorrer todos os doadores
+	for (const [ indice, objeto ] of dados.entries()) {
+		// Verificar se é do tipo sanguíneo desejado
+		if (objeto.sangue === busca) {
+			// Adicionar objeto formatado à lista de resultados
+			resultados.push(formatar(objeto, indice + 1))
+		}
+	}
+
+	// Verificar se há resultados na lista
+	if (resultados.length > 0) {
+		// Montar cabeçalho da lista
+		const cabecalho = {
+			nome: "NOME E SOBRENOME",
+			nascimento: "ANIVERSÁRIO",
+			peso: "PESO",
+			sangue: "TIPO",
+			doacao: "ÚLTIMA DOAÇÃO",
+		}
+	
+		// Imprimir cabeçalho
+		console.log(formatar(cabecalho, "#"))
+
+		// Percorrer todos os resultados
+		for (const item of resultados) {
+			// Imprimir dados
+			console.log(item)
+		}
+
+		// Apresentar mensagem de sucesso
+		console.log(`Resultados listados com sucesso! ${resultados.length} doadores encontrados.`)
+	}
+	else {
+		// Apresentar mensagem de erro
+		console.log(`Nenhum doador encontrado! Tente novamente com outro tipo sanguíneo.`)
+	}
+
+	// Imprimir divisor
+	console.log("---------------")
 }
+
 
 // Função para sair
 function sair() {
 	// Mostrar mensagem de apresentação
-	console.log("Função de saída! Para reiniciar, atualize a aba do navegador.")
+	console.log("Função de saída! Para reiniciar, atualize a página.")
 
 	// Interromper programa
 	continuar = false
@@ -126,7 +195,6 @@ function sair() {
 
 // Loop para perguntar ao usuário
 while (continuar == true) {
-
 	// Formatar pergunta
 	let pergunta  = "SISTEMA DE DOARES DE SANGUE\n"
 		pergunta += "-------------------------\n"
@@ -138,6 +206,9 @@ while (continuar == true) {
 
 	// Guardar resposta
 	let resposta = Number(prompt(pergunta))
+
+	// Limpar console
+	console.clear()
 
 	// Identificar resposta e chamar função
 	switch (resposta) {
@@ -154,5 +225,4 @@ while (continuar == true) {
 			sair()
 			break
 	}
-
 }
